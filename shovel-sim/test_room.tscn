@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://d34otekrxqrl3"]
+
+[ext_resource type="Script" uid="uid://c7470lpdmeui3" path="res://sand-pile-gen.gd" id="1_oqbmf"]
+[ext_resource type="PackedScene" uid="uid://dlyddbyh1gpux" path="res://box_clump.tscn" id="2_arrdh"]
+[ext_resource type="Script" uid="uid://w3fc7rhwk1ux" path="res://debug_ui.gd" id="3_arrdh"]
+
+[sub_resource type="Gradient" id="Gradient_x60sr"]
+colors = PackedColorArray(0, 0, 0, 1, 0.81960785, 0.43529412, 0.105882354, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aiegb"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oqbmf"]
+noise = SubResource("FastNoiseLite_aiegb")
+color_ramp = SubResource("Gradient_x60sr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arrdh"]
+albedo_texture = SubResource("NoiseTexture2D_oqbmf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ju58f"]
+material = SubResource("StandardMaterial3D_arrdh")
+size = Vector2(128, 128)
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_x60sr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aiegb"]
+
+[sub_resource type="Sky" id="Sky_oqbmf"]
+sky_material = SubResource("ProceduralSkyMaterial_aiegb")
+
+[sub_resource type="Environment" id="Environment_arrdh"]
+background_mode = 2
+sky = SubResource("Sky_oqbmf")
+ambient_light_source = 3
+ambient_light_color = Color(0.28235295, 0.25490198, 1, 1)
+
+[node name="Test_Room" type="Node3D"]
+script = ExtResource("1_oqbmf")
+clump_scene = ExtResource("2_arrdh")
+
+[node name="Ground_SB3D" type="StaticBody3D" parent="."]
+
+[node name="Ground_MI3D" type="MeshInstance3D" parent="Ground_SB3D"]
+mesh = SubResource("PlaneMesh_ju58f")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground_SB3D"]
+shape = SubResource("WorldBoundaryShape3D_x60sr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9909176, 0.1344705, 0, -0.1344705, 0.9909176, 0, 1.2209408, 2.7434201)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_arrdh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7997161, -0.31230187, -0.5127589, 0.60037833, 0.4159924, 0.6830053, 0, -0.8540597, 0.5201751, 0, 1.3293059, 0)
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+script = ExtResource("3_arrdh")
+
+[node name="FPS_Label" type="Label" parent="DebugUI"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Stats_Lable" type="Label" parent="DebugUI"]
+offset_left = 1.0
+offset_top = 31.0
+offset_right = 41.0
+offset_bottom = 54.0
