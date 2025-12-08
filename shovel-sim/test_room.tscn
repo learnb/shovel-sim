@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://d34otekrxqrl3"]
+[gd_scene load_steps=12 format=3 uid="uid://d34otekrxqrl3"]
 
-[ext_resource type="Script" uid="uid://c7470lpdmeui3" path="res://sand-pile-gen.gd" id="1_oqbmf"]
-[ext_resource type="PackedScene" uid="uid://dlyddbyh1gpux" path="res://box_clump.tscn" id="2_arrdh"]
+[ext_resource type="PackedScene" uid="uid://cy1acr0mcykai" path="res://granular_sim.tscn" id="2_oqbmf"]
 [ext_resource type="Script" uid="uid://w3fc7rhwk1ux" path="res://debug_ui.gd" id="3_arrdh"]
 
 [sub_resource type="Gradient" id="Gradient_x60sr"]
@@ -36,10 +35,9 @@ ambient_light_source = 3
 ambient_light_color = Color(0.28235295, 0.25490198, 1, 1)
 
 [node name="Test_Room" type="Node3D"]
-script = ExtResource("1_oqbmf")
-clump_scene = ExtResource("2_arrdh")
 
 [node name="Ground_SB3D" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="Ground_MI3D" type="MeshInstance3D" parent="Ground_SB3D"]
 mesh = SubResource("PlaneMesh_ju58f")
@@ -49,7 +47,7 @@ skeleton = NodePath("../..")
 shape = SubResource("WorldBoundaryShape3D_x60sr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9909176, 0.1344705, 0, -0.1344705, 0.9909176, 0, 1.2209408, 2.7434201)
+transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 35.684227, 178.20044)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_arrdh")
@@ -69,3 +67,6 @@ offset_left = 1.0
 offset_top = 31.0
 offset_right = 41.0
 offset_bottom = 54.0
+
+[node name="GranularSim" parent="." instance=ExtResource("2_oqbmf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 0)

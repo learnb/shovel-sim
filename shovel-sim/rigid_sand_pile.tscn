@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://diy83tb813rvx"]
+
+[ext_resource type="Script" uid="uid://c7470lpdmeui3" path="res://sand-pile-gen.gd" id="1_up1to"]
+[ext_resource type="PackedScene" uid="uid://dlyddbyh1gpux" path="res://box_clump.tscn" id="2_a27sw"]
+
+[node name="SandPile_Rigid" type="Node3D"]
+script = ExtResource("1_up1to")
+clump_scene = ExtResource("2_a27sw")

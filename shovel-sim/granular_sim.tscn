@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy1acr0mcykai"]
+[gd_scene load_steps=5 format=3 uid="uid://cy1acr0mcykai"]
 
 [ext_resource type="Script" uid="uid://buoivj8ul7kdt" path="res://granular_sim.gd" id="1_6dx8c"]
+[ext_resource type="Script" uid="uid://b1sptek7vp72l" path="res://grid_render.gd" id="2_cxyb8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cxyb8"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_a5ai7"]
+mesh = SubResource("BoxMesh_cxyb8")
 
 [node name="GranularSim" type="Node3D"]
 script = ExtResource("1_6dx8c")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("sim")]
+multimesh = SubResource("MultiMesh_a5ai7")
+script = ExtResource("2_cxyb8")
+sim = NodePath("..")
