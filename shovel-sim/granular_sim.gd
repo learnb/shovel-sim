@@ -4,8 +4,8 @@ enum CellType { EMPTY, SAND, DIRT, ROCK }
 const REPOSE = 0.5		# stable slope (meters of height difference)
 const FLOW_RATE = 0.5	# fraction of excess height to move
 
-const grid_width = 128
-const grid_height = 128
+const grid_width = 64
+const grid_height = 64
 var grid_size = grid_height * grid_width
 var update_indices = []
 

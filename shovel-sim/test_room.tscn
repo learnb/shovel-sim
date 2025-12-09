@@ -47,7 +47,7 @@ skeleton = NodePath("../..")
 shape = SubResource("WorldBoundaryShape3D_x60sr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 35.684227, 178.20044)
+transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 35.684227, 103.79837)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_arrdh")
@@ -69,4 +69,4 @@ offset_right = 41.0
 offset_bottom = 54.0
 
 [node name="GranularSim" parent="." instance=ExtResource("2_oqbmf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
