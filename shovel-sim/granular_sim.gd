@@ -63,8 +63,6 @@ func process_cell(x, y):
 	#cell_height[i] = randf_range(0.0, 10.0)
 	
 	# try spreading to neighbors
-	# TODO: randomize how we iterate the neighbors to "balance" 
-	# 		preference for spreading
 	for off in get_neighbors():
 		var nx = x + off.x
 		var ny = y + off.y
@@ -97,7 +95,7 @@ func set_type(x, y, t):
 	cell_type[idx(x,y)] = t
 
 func get_neighbors():
-	return [
+	var l = [
 		Vector2i(-1, 0), # left
 		Vector2i(1, 0),  # right
 		Vector2i(0, -1), # down
@@ -108,3 +106,5 @@ func get_neighbors():
 		Vector2i(-1, 1),  # up-left
 		Vector2i(1, 1),   # up-right
 	]
+	l.shuffle()
+	return l

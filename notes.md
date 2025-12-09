@@ -13,7 +13,7 @@ The core idea was around the fact that it is easier to scoop up material when th
 - [ ] implement various "material" types, each with their own parameters
 - [ ] add camera controls
 - [ ] randomize neighbor checks to reduce bias
-
+- [ ] add way to down in more material
 
 ## Challenges
 
