@@ -54,18 +54,51 @@ environment = SubResource("Environment_arrdh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.7997161, -0.31230187, -0.5127589, 0.60037833, 0.4159924, 0.6830053, 0, -0.8540597, 0.5201751, 0, 1.3293059, 0)
 
-[node name="DebugUI" type="CanvasLayer" parent="."]
+[node name="DebugUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("sim")]
 script = ExtResource("3_arrdh")
+sim = NodePath("../GranularSim")
 
 [node name="FPS_Label" type="Label" parent="DebugUI"]
 offset_right = 40.0
 offset_bottom = 23.0
 
-[node name="Stats_Lable" type="Label" parent="DebugUI"]
+[node name="Stats_Label" type="Label" parent="DebugUI"]
 offset_left = 1.0
 offset_top = 31.0
 offset_right = 41.0
 offset_bottom = 54.0
+
+[node name="HSlider_flow" type="HSlider" parent="DebugUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1142.0
+offset_top = 60.0
+offset_right = -942.0
+offset_bottom = 76.0
+grow_horizontal = 0
+min_value = 0.001
+max_value = 1.0
+step = 0.01
+value = 0.001
+
+[node name="HSlider_repose" type="HSlider" parent="DebugUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1142.0
+offset_top = 120.0
+offset_right = -942.0
+offset_bottom = 136.0
+grow_horizontal = 0
+step = 0.1
+
+[node name="Button" type="Button" parent="DebugUI"]
+offset_left = 1066.0
+offset_top = 29.0
+offset_right = 1074.0
+offset_bottom = 37.0
+text = "Reset"
 
 [node name="GranularSim" parent="." instance=ExtResource("2_oqbmf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
