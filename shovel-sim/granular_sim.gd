@@ -2,7 +2,7 @@ extends Node3D
 
 enum CellType { EMPTY, SAND, DIRT, ROCK }
 const REPOSE = 0.5		# stable slope (meters of height difference)
-const FLOW_RATE = 0.5	# fraction of excess height to move
+const FLOW_RATE = 0.001	# fraction of excess height to move
 
 const grid_width = 64
 const grid_height = 64
@@ -22,7 +22,8 @@ func _ready():
 	
 	for i in grid_size:
 		cell_type[i] = CellType.SAND
-		cell_height[i] = randf_range(0.0, 50.0)
+		cell_height[i] = randf_range(0.0, 5.0)
+	cell_height[idx(32, 32)] = 200.0
 
 func _process(_delta):
 	update_grid()

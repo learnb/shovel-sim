@@ -17,7 +17,7 @@ albedo_texture = SubResource("NoiseTexture2D_oqbmf")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ju58f"]
 material = SubResource("StandardMaterial3D_arrdh")
-size = Vector2(128, 128)
+size = Vector2(2048, 2048)
 subdivide_width = 32
 subdivide_depth = 32
 
@@ -37,7 +37,6 @@ ambient_light_color = Color(0.28235295, 0.25490198, 1, 1)
 [node name="Test_Room" type="Node3D"]
 
 [node name="Ground_SB3D" type="StaticBody3D" parent="."]
-visible = false
 
 [node name="Ground_MI3D" type="MeshInstance3D" parent="Ground_SB3D"]
 mesh = SubResource("PlaneMesh_ju58f")
@@ -47,7 +46,7 @@ skeleton = NodePath("../..")
 shape = SubResource("WorldBoundaryShape3D_x60sr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 35.684227, 103.79837)
+transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 30.410698, 88.46835)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_arrdh")
