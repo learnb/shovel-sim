@@ -17,6 +17,13 @@ func _ready():
 	repose_slider.value_changed.connect(_on_repose_change)
 	
 	reset_button.pressed.connect(_on_reset)
+	
+	print(map_value(42, 24, 90, -50, 50))
+
+func map_value(value, in_min, in_max, out_min, out_max):
+	var t = inverse_lerp(in_min, in_max, value)
+	return lerp(out_min, out_max, t)
+
 
 func _process(_delta):
 	var fps = Engine.get_frames_per_second()

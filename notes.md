@@ -12,11 +12,12 @@ The core idea was around the fact that it is easier to scoop up material when th
 - [x] expose sim parameters as UI sliders
 - [ ] implement various "material" types, each with their own parameters
 - [ ] add camera controls
-- [ ] randomize neighbor checks to reduce bias
-- [ ] add way to down in more material
+- [x] randomize neighbor checks to reduce bias
+- [ ] add way to drop in more material
+- [x] add a few initial states to pick from
+
 
 ## Challenges
 
 - How to enable sim to react to external forces (digging)
   - Can the sim interface with godot's physics?
-
