@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://d34otekrxqrl3"]
+[gd_scene load_steps=13 format=3 uid="uid://d34otekrxqrl3"]
 
+[ext_resource type="Script" uid="uid://cdrevlh26qtly" path="res://simple_kbd_camera.gd" id="1_arrdh"]
 [ext_resource type="PackedScene" uid="uid://cy1acr0mcykai" path="res://granular_sim.tscn" id="2_oqbmf"]
 [ext_resource type="Script" uid="uid://w3fc7rhwk1ux" path="res://debug_ui.gd" id="3_arrdh"]
 
@@ -47,6 +48,9 @@ shape = SubResource("WorldBoundaryShape3D_x60sr")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9454333, 0.3258157, 0, -0.3258157, 0.9454333, 0, 30.410698, 88.46835)
+script = ExtResource("1_arrdh")
+move_speed = 50.0
+look_speed = 70.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_arrdh")
