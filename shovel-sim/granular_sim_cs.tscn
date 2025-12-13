@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://njnigworv3xm"]
+
+[ext_resource type="Script" uid="uid://dr7723ggbjh8j" path="res://granular_sim_cs.gd" id="1_gunxe"]
+
+[node name="Granular_Sim_CS" type="Node3D"]
+script = ExtResource("1_gunxe")

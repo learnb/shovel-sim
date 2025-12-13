@@ -9,13 +9,15 @@ The core idea was around the fact that it is easier to scoop up material when th
 ## TODO
 
 - [ ] optimize rule processing as compute shader
-- [x] expose sim parameters as UI sliders
 - [ ] implement various "material" types, each with their own parameters
-- [ ] add camera controls
-- [x] randomize neighbor checks to reduce bias
 - [ ] add way to drop in more material
-- [x] add a few initial states to pick from
 
+## Done
+
+- [x] add a few initial states to pick from
+- [x] add camera controls
+- [x] randomize neighbor checks to reduce bias
+- [x] expose sim parameters as UI sliders
 
 ## Challenges
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://d34otekrxqrl3"]
+[gd_scene load_steps=14 format=3 uid="uid://d34otekrxqrl3"]
 
 [ext_resource type="Script" uid="uid://cdrevlh26qtly" path="res://simple_kbd_camera.gd" id="1_arrdh"]
 [ext_resource type="PackedScene" uid="uid://cy1acr0mcykai" path="res://granular_sim.tscn" id="2_oqbmf"]
 [ext_resource type="Script" uid="uid://w3fc7rhwk1ux" path="res://debug_ui.gd" id="3_arrdh"]
+[ext_resource type="PackedScene" uid="uid://njnigworv3xm" path="res://granular_sim_cs.tscn" id="4_ju58f"]
 
 [sub_resource type="Gradient" id="Gradient_x60sr"]
 colors = PackedColorArray(0, 0, 0, 1, 0.81960785, 0.43529412, 0.105882354, 1)
@@ -100,3 +101,5 @@ text = "Reset"
 
 [node name="GranularSim" parent="." instance=ExtResource("2_oqbmf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
+
+[node name="Granular_Sim_CS" parent="." instance=ExtResource("4_ju58f")]
