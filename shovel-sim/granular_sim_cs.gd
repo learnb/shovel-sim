@@ -1,22 +1,28 @@
 extends Node3D
 
+var REPOSE = 0.35   	# stable slope (meters of height difference)
+var FLOW_RATE = 0.01	# fraction of excess height to move
+
 var rd: RenderingDevice
-var shader_file: Shader
+var shader_file: RDShaderFile
 var shader: RID
 
 var height_buffer: RID
 var type_buffer: RID
 var uniform_set: RID
 
-var grid_width: int = 64
-var grid_height: int = 64
+var grid_width: int = 128
+var grid_height: int = 128
 var grid_size: int = grid_width * grid_height
 var frame_counter: int = 0
-const SYNC_EVERY_N_FRAMES: int = 3
+const SYNC_EVERY_N_FRAMES: int = 10
 
 var heights: PackedFloat32Array = PackedFloat32Array()
 var types: PackedFloat32Array = PackedFloat32Array()
 var output: PackedFloat32Array = PackedFloat32Array()
+
+var multi_mesh_instance: MultiMeshInstance3D
+var multi_mesh: MultiMesh
 
 var running: bool = false
 
@@ -33,19 +39,23 @@ func _ready():
 	init_data()
 	prepare_buffers()
 
+	setup_multimesh()
+
 	running = true
 
 func _process(_delta):
 	if running:
 		run_simulation_step()
+		update_multimesh()
 
 func init_data():
 	for i in range(grid_size):
-		heights.append(randf_range(0.0, 10.0))
+		heights.append(randf_range(0.0, 100.0))
 		types.append(1)
 
 func update_data():
 	heights = output
+	#print(heights)
 
 func prepare_buffers():
 	var height_bytes: PackedByteArray = heights.to_byte_array()
@@ -81,20 +91,48 @@ func run_simulation_step():
 	rd.compute_list_dispatch(compute_list, x_groups, y_groups, z_groups)
 	rd.compute_list_end()
 
+	#print("Frame: ", frame_counter)
 	# Execute pipeline
-	rd.submit()
+	if frame_counter == 0:
+		#print("submit")
+		rd.submit()
+
 	frame_counter += 1
 
 	# wait a few frames to sync
 	if frame_counter >= SYNC_EVERY_N_FRAMES:
+		#print("sync")
 		rd.sync()
 		frame_counter = 0
 
 	# Read results
 	if frame_counter == 0:
+		#print("read")
 		var output_bytes := rd.buffer_get_data(height_buffer)
 		output = output_bytes.to_float32_array()
 		update_data()
+
+func setup_multimesh():
+	multi_mesh = MultiMesh.new()
+	multi_mesh.transform_format = MultiMesh.TRANSFORM_3D
+	multi_mesh.mesh = BoxMesh.new()
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = Color.BURLYWOOD
+	multi_mesh.mesh.surface_set_material(0, mat)
+	multi_mesh.instance_count = grid_size
+
+	multi_mesh_instance = MultiMeshInstance3D.new()
+	multi_mesh_instance.multimesh = multi_mesh
+	add_child(multi_mesh_instance)
+
+func update_multimesh():
+	for x in range(grid_width):
+		for y in range(grid_height):
+			var index = y * grid_width + x
+			var instance_transform = Transform3D()
+			instance_transform.origin = Vector3(x, 0, y)
+			instance_transform = instance_transform.scaled(Vector3(1, heights[index], 1))
+			multi_mesh.set_instance_transform(index, instance_transform)
 
 func _exit_tree():
 	# Cleanup all buffers and RIDs

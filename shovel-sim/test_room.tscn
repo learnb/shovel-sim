@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://d34otekrxqrl3"]
+[gd_scene load_steps=13 format=3 uid="uid://d34otekrxqrl3"]
 
 [ext_resource type="Script" uid="uid://cdrevlh26qtly" path="res://simple_kbd_camera.gd" id="1_arrdh"]
-[ext_resource type="PackedScene" uid="uid://cy1acr0mcykai" path="res://granular_sim.tscn" id="2_oqbmf"]
 [ext_resource type="Script" uid="uid://w3fc7rhwk1ux" path="res://debug_ui.gd" id="3_arrdh"]
 [ext_resource type="PackedScene" uid="uid://njnigworv3xm" path="res://granular_sim_cs.tscn" id="4_ju58f"]
 
@@ -61,7 +60,7 @@ transform = Transform3D(0.7997161, -0.31230187, -0.5127589, 0.60037833, 0.415992
 
 [node name="DebugUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("sim")]
 script = ExtResource("3_arrdh")
-sim = NodePath("../GranularSim")
+sim = NodePath("../Granular_Sim_CS")
 
 [node name="FPS_Label" type="Label" parent="DebugUI"]
 offset_right = 40.0
@@ -98,8 +97,5 @@ offset_top = 40.0
 offset_bottom = 71.0
 grow_horizontal = 0
 text = "Reset"
-
-[node name="GranularSim" parent="." instance=ExtResource("2_oqbmf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32, 0, 0)
 
 [node name="Granular_Sim_CS" parent="." instance=ExtResource("4_ju58f")]

@@ -9,10 +9,10 @@ layout(binding = 1) buffer TypeData {
     int types[];
 };
 
-const int GRID_WIDTH = 64;
-const int GRID_HEIGHT = 64;
-const float REPOSE = 0.5;
-const float FLOW_RATE = 0.001;
+const int GRID_WIDTH = 128;
+const int GRID_HEIGHT = 128;
+const float REPOSE = 0.35;
+const float FLOW_RATE = 0.05;
 
 // Compute shader entry point
 layout(local_size_x = 8, local_size_y = 8) in;
