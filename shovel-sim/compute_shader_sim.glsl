@@ -84,7 +84,7 @@ void main() {
 
                 heights[index] -= moveAmount;
                 heights[neighborIndexLinear] += moveAmount;
-                break ; // exit after moving material?
+                //break ; // exit after moving material?
             }
         }
     }

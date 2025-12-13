@@ -17,9 +17,9 @@ var grid_size: int = grid_width * grid_height
 var frame_counter: int = 0
 const SYNC_EVERY_N_FRAMES: int = 10
 
-var heights: PackedFloat32Array = PackedFloat32Array()
-var types: PackedFloat32Array = PackedFloat32Array()
-var output: PackedFloat32Array = PackedFloat32Array()
+var heights: PackedFloat32Array
+var types: PackedFloat32Array
+var output: PackedFloat32Array
 
 var multi_mesh_instance: MultiMeshInstance3D
 var multi_mesh: MultiMesh
@@ -48,7 +48,16 @@ func _process(_delta):
 		run_simulation_step()
 		update_multimesh()
 
+func reset():
+	init_data()
+	prepare_buffers()
+
 func init_data():
+	frame_counter = 0
+	heights = PackedFloat32Array()
+	types = PackedFloat32Array()
+	output = PackedFloat32Array()
+
 	for i in range(grid_size):
 		heights.append(randf_range(0.0, 100.0))
 		types.append(1)
@@ -122,6 +131,11 @@ func setup_multimesh():
 	multi_mesh.instance_count = grid_size
 
 	multi_mesh_instance = MultiMeshInstance3D.new()
+
+	var t: Transform3D = Transform3D()
+	t.origin = Vector3(-1 * (grid_width / 2), 0, -1 * (grid_height / 2))
+	multi_mesh_instance.transform = t
+	
 	multi_mesh_instance.multimesh = multi_mesh
 	add_child(multi_mesh_instance)
 
