@@ -1,6 +1,6 @@
 extends Node3D
 
-var REPOSE = 0.35   	# stable slope (meters of height difference)
+var REPOSE = 0.1   	# stable slope (meters of height difference)
 var FLOW_RATE = 0.01	# fraction of excess height to move
 
 var rd: RenderingDevice

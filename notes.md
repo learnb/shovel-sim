@@ -8,12 +8,14 @@ The core idea was around the fact that it is easier to scoop up material when th
 
 ## TODO
 
-- [ ] optimize rule processing as compute shader
+- [ ] hook up debug controls to compute shader sim
 - [ ] implement various "material" types, each with their own parameters
 - [ ] add way to drop in more material
 
 ## Done
 
+- [x] fix bias in compute shader by adding randomness to check directions
+- [x] optimize rule processing as compute shader
 - [x] add a few initial states to pick from
 - [x] add camera controls
 - [x] randomize neighbor checks to reduce bias
