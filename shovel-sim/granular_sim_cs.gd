@@ -13,8 +13,8 @@ var param_buffer: RID
 var grid_param_buffer: RID
 var uniform_set: RID
 
-var grid_width: int = 128
-var grid_height: int = 128
+var grid_width: int = 256
+var grid_height: int = 256
 var grid_size: int = grid_width * grid_height
 var frame_counter: int = 0
 const SYNC_EVERY_N_FRAMES: int = 10
@@ -29,6 +29,7 @@ var multi_mesh_instance: MultiMeshInstance3D
 var multi_mesh: MultiMesh
 
 var running: bool = false
+var running_shader: bool = false
 
 func _ready():
 	# Create rendering device
@@ -53,9 +54,20 @@ func _process(_delta):
 		update_multimesh()
 
 func reset():
-	rd.sync()
+	if running_shader:
+		rd.sync()
+		running_shader = false
 	init_data()
 	prepare_buffers()
+	#running = true
+
+func change_grid_size(width: int, height: int):
+	running = false
+	grid_width = width
+	grid_height = height
+	grid_size = grid_width * grid_height
+	resize_multimesh()
+	reset()
 
 func init_data():
 	frame_counter = 0
@@ -135,6 +147,7 @@ func run_simulation_step():
 	if frame_counter == 0:
 		#print("submit")
 		rd.submit()
+		running_shader = true
 
 	frame_counter += 1
 
@@ -142,6 +155,7 @@ func run_simulation_step():
 	if frame_counter >= SYNC_EVERY_N_FRAMES:
 		#print("sync")
 		rd.sync()
+		running_shader = false
 		frame_counter = 0
 
 	# Read results
@@ -168,6 +182,12 @@ func setup_multimesh():
 	
 	multi_mesh_instance.multimesh = multi_mesh
 	add_child(multi_mesh_instance)
+
+func resize_multimesh():
+	var t: Transform3D = Transform3D()
+	t.origin = Vector3(-1 * (grid_width / 2), 0, -1 * (grid_height / 2))
+	multi_mesh_instance.transform = t
+	multi_mesh.instance_count = grid_size
 
 func update_multimesh():
 	for x in range(grid_width):

@@ -8,14 +8,15 @@ The core idea was around the fact that it is easier to scoop up material when th
 
 ## TODO
 
+- [ ] reimplement as vertex shader; multimesh shader
 - [ ] implement spawning new material in a sim
 - [ ] attaching a sim to objects
-- [ ] hook up debug controls to compute shader sim
 - [ ] implement various "material" types, each with their own parameters
 - [ ] add way to drop in more material
 
 ## Done
 
+- [x] hook up debug controls to compute shader sim
 - [x] fix bias in compute shader by adding randomness to check directions
 - [x] optimize rule processing as compute shader
 - [x] add a few initial states to pick from

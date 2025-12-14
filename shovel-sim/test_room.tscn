@@ -98,4 +98,32 @@ offset_bottom = 71.0
 grow_horizontal = 0
 text = "Reset"
 
+[node name="Button_stop" type="Button" parent="DebugUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_top = 84.0
+offset_bottom = 115.0
+grow_horizontal = 0
+text = "Stop"
+
+[node name="HSlider_grid_width" type="HSlider" parent="DebugUI"]
+offset_top = 180.0
+offset_right = 200.0
+offset_bottom = 196.0
+min_value = 8.0
+max_value = 1024.0
+step = 2.0
+value = 8.0
+
+[node name="HSlider_grid_height" type="HSlider" parent="DebugUI"]
+offset_top = 240.0
+offset_right = 200.0
+offset_bottom = 256.0
+min_value = 8.0
+max_value = 1024.0
+step = 2.0
+value = 8.0
+
 [node name="Granular_Sim_CS" parent="." instance=ExtResource("4_ju58f")]
