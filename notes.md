@@ -8,6 +8,8 @@ The core idea was around the fact that it is easier to scoop up material when th
 
 ## TODO
 
+- [ ] implement spawning new material in a sim
+- [ ] attaching a sim to objects
 - [ ] hook up debug controls to compute shader sim
 - [ ] implement various "material" types, each with their own parameters
 - [ ] add way to drop in more material
@@ -24,4 +26,6 @@ The core idea was around the fact that it is easier to scoop up material when th
 ## Challenges
 
 - How to enable sim to react to external forces (digging)
-  - Can the sim interface with godot's physics?
+  - attach new sim objects (grids) to objects that will interact with other sims
+  - will have to handle logic for how cell values interact
+- How can multiple material types interact within a sim?

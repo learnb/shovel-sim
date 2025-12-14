@@ -34,9 +34,11 @@ func _process(_delta):
 
 func _on_flow_rate_change(value: float):
 	sim.FLOW_RATE = value
+	#sim.prepare_buffers()
 
 func _on_repose_change(value: float):
 	sim.REPOSE = value
+	#sim.prepare_buffers()
 
 func _on_reset():
 	sim.reset()

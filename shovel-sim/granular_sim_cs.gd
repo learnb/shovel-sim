@@ -1,7 +1,7 @@
 extends Node3D
 
-var REPOSE = 0.1   	# stable slope (meters of height difference)
-var FLOW_RATE = 0.01	# fraction of excess height to move
+var REPOSE = 0.001   	# stable slope (meters of height difference)
+var FLOW_RATE = 0.1	# fraction of excess height to move
 
 var rd: RenderingDevice
 var shader_file: RDShaderFile
@@ -9,6 +9,8 @@ var shader: RID
 
 var height_buffer: RID
 var type_buffer: RID
+var param_buffer: RID
+var grid_param_buffer: RID
 var uniform_set: RID
 
 var grid_width: int = 128
@@ -19,6 +21,8 @@ const SYNC_EVERY_N_FRAMES: int = 10
 
 var heights: PackedFloat32Array
 var types: PackedFloat32Array
+var params: PackedFloat32Array
+var grid_params: PackedInt32Array
 var output: PackedFloat32Array
 
 var multi_mesh_instance: MultiMeshInstance3D
@@ -49,6 +53,7 @@ func _process(_delta):
 		update_multimesh()
 
 func reset():
+	rd.sync()
 	init_data()
 	prepare_buffers()
 
@@ -56,6 +61,7 @@ func init_data():
 	frame_counter = 0
 	heights = PackedFloat32Array()
 	types = PackedFloat32Array()
+	params = PackedFloat32Array()
 	output = PackedFloat32Array()
 
 	for i in range(grid_size):
@@ -65,14 +71,21 @@ func init_data():
 func update_data():
 	heights = output
 	#print(heights)
+	#print(heights[32*128])
 
 func prepare_buffers():
+	params = [REPOSE, FLOW_RATE]
+	grid_params = [grid_width, grid_height]
 	var height_bytes: PackedByteArray = heights.to_byte_array()
 	var type_bytes: PackedByteArray = types.to_byte_array()
+	var param_bytes: PackedByteArray = params.to_byte_array()
+	var grid_param_bytes: PackedByteArray = grid_params.to_byte_array()
 
 	# Put data into buffers
 	height_buffer = rd.storage_buffer_create(height_bytes.size(), height_bytes)
 	type_buffer = rd.storage_buffer_create(type_bytes.size(), type_bytes)
+	param_buffer = rd.storage_buffer_create(param_bytes.size(), param_bytes)
+	grid_param_buffer = rd.storage_buffer_create(grid_param_bytes.size(), grid_param_bytes)
 
 	# Create uniforms and assign buffers
 	var height_uniform: RDUniform = RDUniform.new()
@@ -85,7 +98,24 @@ func prepare_buffers():
 	type_uniform.binding = 1
 	type_uniform.add_id(type_buffer)
 
-	uniform_set = rd.uniform_set_create([height_uniform, type_uniform], shader, 0)
+	var param_uniform: RDUniform = RDUniform.new()
+	param_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	param_uniform.binding = 2
+	param_uniform.add_id(param_buffer)
+
+	var grid_param_uniform: RDUniform = RDUniform.new()
+	grid_param_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
+	grid_param_uniform.binding = 3
+	grid_param_uniform.add_id(grid_param_buffer)
+
+	var uniforms: Array[RDUniform] = [
+		height_uniform,
+		type_uniform,
+		param_uniform,
+		grid_param_uniform,
+	]
+
+	uniform_set = rd.uniform_set_create(uniforms, shader, 0)
 
 func run_simulation_step():
 	var x_groups: int = grid_width / 8
