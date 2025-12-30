@@ -83,38 +83,38 @@ Solution: Limit to ~8-16 objects, use simple shapes, early-out tests
 
 2. Set up texture buffers
 
-- [ ] Create ping-pong Texture2DArray pair (read/write buffers)
-- [ ] Initialize with empty state
-- [ ] Implement buffer swap logic
+- [x] Create ping-pong Texture2DArray pair (read/write buffers)
+- [x] Initialize with empty state
+- [x] Implement buffer swap logic
 
 3. Create material property system
 
-- [ ] Define material types enum (Sand, Dirt, Mulch, etc.)
-- [ ] Create material properties data structure (density, friction, angle of repose, etc.)
-- [ ] Build material lookup texture or uniform array
+- [x] Define material types enum (Sand, Dirt, Mulch, etc.)
+- [x] Create material properties data structure (density, friction, angle of repose, etc.)
+- [x] Build material lookup texture or uniform array
 
 ### Phase 2: Basic Physics Simulation
 
 4. Implement Pass 1 shader: Physics update
 
-- [ ] Apply gravity to particles
-- [ ] Integrate velocity
-- [ ] Basic damping/friction
-- [ ] Write to output texture
+- [x] Apply gravity to particles
+- [x] Integrate velocity
+- [x] Basic damping/friction
+- [x] Write to output texture
 
 
 5. Set up shader pipeline infrastructure
 
-- [ ] Create SubViewport for shader rendering
-- [ ] Set up fullscreen quad rendering
-- [ ] Implement ping-pong texture swap
-- [ ] Get basic update loop working
+- [x] Create SubViewport for shader rendering
+- [x] Set up fullscreen quad rendering
+- [x] Implement ping-pong texture swap
+- [x] Get basic update loop working
 
 
 6. Test with simple particle spawn
 
-- [ ] Add function to spawn particles at grid positions
-- [ ] Spawn a column of particles
+- [x] Add function to spawn particles at grid positions
+- [x] Spawn a column of particles
 - [ ] Verify they fall with gravity
 
 ### Phase 3: Particle Interactions
