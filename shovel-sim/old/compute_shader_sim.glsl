@@ -19,6 +19,8 @@ layout(binding = 3) buffer GridParams {
     int grid_height;
 };
 
+layout(binding = 4, rgba32f) writeonly uniform image2d outputTexture;
+
 // Compute shader entry point
 layout(local_size_x = 8, local_size_y = 8) in;
 
@@ -70,7 +72,7 @@ void main() {
         random_indices[i] = random_indices[randIndex];
         random_indices[randIndex] = temp;
     }
-
+    
     for ( int i = 0; i < 8 ; i ++ ) {
         int neighborIndex = random_indices[i];
         ivec2 neighborCoord = gid + ivec2(offsets[neighborIndex]);
@@ -93,4 +95,8 @@ void main() {
             }
         }
     }
+
+    // write to texture
+    imageStore(outputTexture, gid, vec4(heights[index], 0.0, 0.0, 1.0))
+
 }

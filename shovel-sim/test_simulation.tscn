@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnqnpco5t6s7n"]
+
+[ext_resource type="Script" uid="uid://bgkel4ne7xnyu" path="res://test_simulation.gd" id="1_fgwxw"]
+[ext_resource type="Script" uid="uid://bwmb2cogk454y" path="res://ParticleSimulation3D.gd" id="2_5y5wk"]
+
+[node name="TestSimulation" type="Node3D"]
+script = ExtResource("1_fgwxw")
+
+[node name="ParticleSimulation3D" type="Node3D" parent="."]
+script = ExtResource("2_5y5wk")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.70710677, -0.49999994, 0.49999994, 0, 0.7071067, 0.7071067, -0.70710677, -0.49999994, 0.49999994, 3, 3, 3)

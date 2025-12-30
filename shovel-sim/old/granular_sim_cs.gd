@@ -13,8 +13,8 @@ var param_buffer: RID
 var grid_param_buffer: RID
 var uniform_set: RID
 
-var grid_width: int = 256
-var grid_height: int = 256
+var grid_width: int = 128
+var grid_height: int = 128
 var grid_size: int = grid_width * grid_height
 var frame_counter: int = 0
 const SYNC_EVERY_N_FRAMES: int = 10
@@ -24,6 +24,7 @@ var types: PackedFloat32Array
 var params: PackedFloat32Array
 var grid_params: PackedInt32Array
 var output: PackedFloat32Array
+var outputTexture: RID
 
 var multi_mesh_instance: MultiMeshInstance3D
 var multi_mesh: MultiMesh
@@ -34,6 +35,16 @@ var running_shader: bool = false
 func _ready():
 	# Create rendering device
 	rd = RenderingServer.create_local_rendering_device()
+
+	# Create output texture
+	var format = RDTextureFormat.new()
+	format.texture_type = RenderingDevice.TEXTURE_TYPE_2D
+	format.width = grid_width
+	format.height = grid_height
+	format.format = RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT
+	format.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT 
+	var view = RDTextureView.new()
+	outputTexture = rd.texture_create(format, view)
 
 	# Load compute shader
 	shader_file = load("res://compute_shader_sim.glsl")
@@ -120,11 +131,17 @@ func prepare_buffers():
 	grid_param_uniform.binding = 3
 	grid_param_uniform.add_id(grid_param_buffer)
 
+	var output_texture_uniform: RDUniform = RDUniform.new()
+	output_texture_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_TEXTURE
+	output_texture_uniform.binding = 4
+	output_texture_uniform.add_id(outputTexture)
+
 	var uniforms: Array[RDUniform] = [
 		height_uniform,
 		type_uniform,
 		param_uniform,
 		grid_param_uniform,
+		output_texture_uniform,
 	]
 
 	uniform_set = rd.uniform_set_create(uniforms, shader, 0)
@@ -161,8 +178,10 @@ func run_simulation_step():
 	# Read results
 	if frame_counter == 0:
 		#print("read")
-		var output_bytes := rd.buffer_get_data(height_buffer)
-		output = output_bytes.to_float32_array()
+		#var output_bytes := rd.buffer_get_data(height_buffer)
+		#output = output_bytes.to_float32_array()
+		var output_data = rd.texture_get_data(outputTexture, 0)
+		output = output_data.to_float32_array()
 		update_data()
 
 func setup_multimesh():
